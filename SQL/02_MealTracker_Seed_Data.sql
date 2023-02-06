@@ -5,13 +5,8 @@ set identity_insert [MealType] on
 insert into [MealType] ([ID], [Name]) VALUES (1, 'Breakfast'), (2, 'Lunch'), (3, 'Dinner'), (4, 'Snack');
 set identity_insert [MealType] off
 
-set identity_insert [Meal] on
-insert into [Meal] ([Id], [Date], [UserProfileId], [MealTypeId]) 
-values (1, '2023-02-01', 1, 1 ), (2, '2023-02-01', 1, 2), (3, '2023-02-01', 1, 3), (4, '2023-02-01', 1, 4);
-set identity_insert [Meal] off
-
 set identity_insert [Ingredient] on
-insert into [Ingredient] ([Id], [Name], [ImageUrl], [ServingSize], [Fat], [Proten], [Carbs], [Sodium])
+insert into [Ingredient] ([Id], [Name], [ImageUrl], [ServingSize], [Fat], [Protein], [Carbs], [Sodium])
 values (1, 'ChickenBrest', 'https://robohash.org/numquamutut.png?size=150x150&set=set1', 4, 3, 53, 0, 0), (2, 'Rice', 'https://robohash.org/nisiautemet.png?size=150x150&set=set1', 158, 1, 4, 45, 2), (3, 'Honey Nut Cheerios', 'https://robohash.org/nisiautemet.png?size=150x150&set=set1', 37, 2, 3, 30, 210), (4, 'Wheat Thins', 'https://robohash.org/nisiautemet.png?size=150x150&set=set1', 31, 5, 2, 22, 210);
 set identity_insert [Ingredient] off
 
@@ -21,6 +16,11 @@ values (1, 'Fatty', 'McFatface', 'fatty@test.com', 'McFatty', 'https://robohash.
 insert into UserProfile (Id, FirstName, LastName, Email,  DisplayName, ProfileImage, FirebaseUserId) 
 values (2, 'Test', 'McTestface', 'test@test.com', 'McTesty', 'https://robohash.org/numquamutut.png?size=150x150&set=set1', '0xKs5J0Z0NXGR6bZ1iS0psIv2AH2');
 set identity_insert [UserProfile] off
+
+set identity_insert [Meal] on
+insert into [Meal] ([Id], [Date], [UserProfileId], [MealTypeId]) 
+values (1, '2023-02-01', 1, 1 ), (2, '2023-02-01', 1, 2), (3, '2023-02-01', 1, 3), (4, '2023-02-01', 1, 4);
+set identity_insert [Meal] off
 
 set identity_insert [MealIngredient] on
 insert into MealIngredient (Id, IngredientId, MealId) values (1, 3, 1);

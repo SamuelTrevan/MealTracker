@@ -30,6 +30,7 @@ namespace MealTracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<IIngredientRepository, IngredientRepository>();
 
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
