@@ -31,9 +31,9 @@ CREATE TABLE [Ingredient] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [Name] nvarchar(255) NOT NULL,
   [ImageUrl] nvarchar(255) NOT NULL,
-  [ServingSive] int NOT NULL,
+  [ServingSize] int NOT NULL,
   [Fat] int NOT NULL,
-  [Proten] int NOT NULL,
+  [Protein] int NOT NULL,
   [Carbs] int NOT NULL,
   [Sodium] int NOT NULL
 )

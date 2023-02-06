@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Hello from "./Hello";
+import IngredientList from "./Ingredients/IngredientList";
 import Login from "./Login";
 import Register from "./Register";
 
@@ -17,7 +18,7 @@ export default function ApplicationViews({ isLoggedIn }) {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route />
+          <Route path="/foods" element={<IngredientList />} />
           <Route />
           <Route />
           <Route>
