@@ -1,0 +1,1 @@
+﻿ALTER TABLE Ingredient ALTER COLUMN ImageUrl VARCHAR (max)

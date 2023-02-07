@@ -1,4 +1,5 @@
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -8,11 +9,13 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { getAllIngredients } from "../../modules/ingredientManager";
 
 export default function IngredientList() {
   const [ingredients, setIngredients] = useState([]);
 
+  const navigate = useNavigate();
   function createData(
     name,
     imageUrl,
@@ -49,38 +52,48 @@ export default function IngredientList() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Foods</TableCell>
-            {/* <TableCell>Image</TableCell> */}
-            <TableCell>Serving Size&nbsp;(g)</TableCell>
-            <TableCell>Fat&nbsp;(g)</TableCell>
-            <TableCell>Protein&nbsp;(g)</TableCell>
-            <TableCell>Carbs&nbsp;(g)</TableCell>
-            <TableCell>Sodium&nbsp;(mg)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              {/* <TableCell align="right">{row.imageUrl}</TableCell> */}
-              <TableCell>{row.servingSize}</TableCell>
-              <TableCell>{row.fat}</TableCell>
-              <TableCell>{row.protein}</TableCell>
-              <TableCell>{row.carbs}</TableCell>
-              <TableCell>{row.sodium}</TableCell>
+    <>
+      <Button
+        variant="contained"
+        onClick={() => {
+          navigate("/food/add");
+        }}
+      >
+        Add New Food
+      </Button>
+
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Foods</TableCell>
+              <TableCell>Serving Size&nbsp;(g)</TableCell>
+              <TableCell>Fat&nbsp;(g)</TableCell>
+              <TableCell>Protein&nbsp;(g)</TableCell>
+              <TableCell>Carbs&nbsp;(g)</TableCell>
+              <TableCell>Sodium&nbsp;(mg)</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell>{row.servingSize}</TableCell>
+                <TableCell>{row.fat}</TableCell>
+                <TableCell>{row.protein}</TableCell>
+                <TableCell>{row.carbs}</TableCell>
+                <TableCell>{row.sodium}</TableCell>
+                {/* add buttons for edit/delete/details */}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

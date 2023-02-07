@@ -40,7 +40,7 @@ export default function Header({ isLoggedIn }) {
             {/* When isLoggedIn === true, we will render the UserProfiles link */}
             {isLoggedIn && (
               <NavItem>
-                <NavLink tag={RRNavLink} to="/foods">
+                <NavLink tag={RRNavLink} to="/food">
                   Foods
                 </NavLink>
               </NavItem>
