@@ -4,6 +4,7 @@ using MealTracker.Utils;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Data.SqlClient;
 
 namespace MealTracker.Repositories
 {
@@ -39,6 +40,52 @@ namespace MealTracker.Repositories
                     }
                     reader.Close();
                     return foods;
+                }
+            }
+        }
+
+        public bool CheckIfExsists(string name)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT Name FROM Ingredient WHERE Name= @name";
+
+                    cmd.Parameters.AddWithValue("name", name);
+
+                    var reader = cmd.ExecuteReader();
+                    return reader.HasRows;
+
+                }
+            }
+        }
+
+        public void AddIngredient(Ingredient ingredient)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO Ingredient (Name, ImageUrl, ServingSize, Fat, Protein, Carbs, Sodium)
+                    OUTPUT INSERTED.Id
+                    Values(@name, @imageUrl, @servingSize, @fat, @protein, @carbs, @sodium)";
+
+                    cmd.Parameters.AddWithValue("name", ingredient.Name);
+                    cmd.Parameters.AddWithValue("imageUrl", ingredient.ImageUrl);
+                    cmd.Parameters.AddWithValue("servingSize", ingredient.ServingSize);
+                    cmd.Parameters.AddWithValue("fat", ingredient.Fat);
+                    cmd.Parameters.AddWithValue("protein", ingredient.Protein);
+                    cmd.Parameters.AddWithValue("carbs", ingredient.Carbs);
+                    cmd.Parameters.AddWithValue("sodium", ingredient.Sodium);
+
+                    ingredient.Id = (int)cmd.ExecuteScalar();
+
                 }
             }
         }
