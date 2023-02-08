@@ -13,12 +13,12 @@ namespace MealTracker.Controllers
         private readonly IIngredientRepository _ingredientRepository;
         public IngredientController(IIngredientRepository ingredientRepository)
         {
-            _ingredientRepository= ingredientRepository;
+            _ingredientRepository = ingredientRepository;
         }
-        
+
         [HttpGet]
-        public IActionResult GetAllIngredients() 
-        { 
+        public IActionResult GetAllIngredients()
+        {
             var foods = _ingredientRepository.GetAllIngredients();
             { return Ok(foods); }
         }
@@ -41,6 +41,18 @@ namespace MealTracker.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
+
+        }
+
+        [HttpGet ("food/{id}")]
+        public IActionResult GetFood(int id)
+        {
+            var food = _ingredientRepository.GetIngredientById(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+            return Ok(food);
 
         }
     }

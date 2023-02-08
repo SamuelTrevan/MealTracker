@@ -8,5 +8,7 @@ namespace MealTracker.Repositories
         List<Ingredient> GetAllIngredients();
         bool CheckIfExsists(string name);
         void AddIngredient(Ingredient ingredient);
+        Ingredient GetIngredientById(int id);
+
     }
 }

@@ -8,6 +8,7 @@ import {
 
 export const AddIngredientForm = () => {
   const [ingredient, setIngredient] = useState([]);
+
   const [userChoices, setUserChoices] = useState({
     name: "",
     imageUrl: "",
