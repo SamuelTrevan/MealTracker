@@ -16,7 +16,9 @@ export default function IngredientList() {
   const [ingredients, setIngredients] = useState([]);
 
   const navigate = useNavigate();
+
   function createData(
+    id,
     name,
     imageUrl,
     servingSize,
@@ -26,6 +28,7 @@ export default function IngredientList() {
     sodium
   ) {
     return {
+      id,
       name,
       imageUrl,
       servingSize,
@@ -37,6 +40,7 @@ export default function IngredientList() {
   }
   const rows = ingredients.map((ingredient) =>
     createData(
+      `${ingredient.id}`,
       `${ingredient.name}`,
       `${ingredient.imageUrl}`,
       `${ingredient.servingSize}`,
@@ -72,6 +76,7 @@ export default function IngredientList() {
               <TableCell>Protein&nbsp;(g)</TableCell>
               <TableCell>Carbs&nbsp;(g)</TableCell>
               <TableCell>Sodium&nbsp;(mg)</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -88,7 +93,26 @@ export default function IngredientList() {
                 <TableCell>{row.protein}</TableCell>
                 <TableCell>{row.carbs}</TableCell>
                 <TableCell>{row.sodium}</TableCell>
-                {/* add buttons for edit/delete/details */}
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate(`/food/${row.id}`)}
+                  >
+                    Details
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    // onClick={() => navigate(`/food/${row.id}`)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    // onClick={() => navigate(`/food/${row.id}`)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

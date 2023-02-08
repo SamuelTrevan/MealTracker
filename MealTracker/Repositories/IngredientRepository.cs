@@ -89,5 +89,41 @@ namespace MealTracker.Repositories
                 }
             }
         }
+
+        public Ingredient GetIngredientById(int id) 
+        {
+            using (var conn = Connection) 
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT i.id, i.name, i.imageUrl, i.servingSize, i.fat, i.protein, i.carbs, i.sodium
+                                        FROM Ingredient i
+                                        WHERE i.id =@id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    
+                    var reader = cmd.ExecuteReader();
+
+                    Ingredient food = null;
+
+                    while (reader.Read()) 
+                    {
+                        food = (new Ingredient()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            Name = DbUtils.GetString(reader, "name"),
+                            ImageUrl = DbUtils.GetString(reader, "imageUrl"),
+                            ServingSize = DbUtils.GetInt(reader, "servingSize"),
+                            Fat = DbUtils.GetInt(reader, "fat"),
+                            Protein = DbUtils.GetInt(reader, "protein"),
+                            Carbs = DbUtils.GetInt(reader, "carbs"),
+                            Sodium = DbUtils.GetInt(reader, "sodium"),
+                        });
+                    }
+                    reader.Close();
+                    return food;
+                }
+            }
+        }
     }
 }
