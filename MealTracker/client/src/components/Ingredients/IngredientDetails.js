@@ -17,14 +17,14 @@ export const IngredientDetails = () => {
 
   useEffect(() => {
     getIngredientById(foodId).then((food) => setFood(food));
-  });
+  }, []);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="275"
           image={food.imageUrl}
           alt={food.name}
         ></CardMedia>
