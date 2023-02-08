@@ -55,5 +55,23 @@ namespace MealTracker.Controllers
             return Ok(food);
 
         }
+
+        [HttpDelete("food/delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _ingredientRepository.DeleteIngredient(id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Conflict("This did not work");
+            }
+        }
+
+
+
     }
 }

@@ -90,9 +90,9 @@ namespace MealTracker.Repositories
             }
         }
 
-        public Ingredient GetIngredientById(int id) 
+        public Ingredient GetIngredientById(int id)
         {
-            using (var conn = Connection) 
+            using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
@@ -101,12 +101,12 @@ namespace MealTracker.Repositories
                                         FROM Ingredient i
                                         WHERE i.id =@id";
                     cmd.Parameters.AddWithValue("@id", id);
-                    
+
                     var reader = cmd.ExecuteReader();
 
                     Ingredient food = null;
 
-                    while (reader.Read()) 
+                    while (reader.Read())
                     {
                         food = (new Ingredient()
                         {
@@ -125,5 +125,31 @@ namespace MealTracker.Repositories
                 }
             }
         }
+
+        public void DeleteIngredient(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE FROM Ingredient
+                    WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+
+
+
     }
 }
+
