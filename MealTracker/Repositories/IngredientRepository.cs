@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Hosting;
 
 namespace MealTracker.Repositories
 {
@@ -142,6 +143,36 @@ namespace MealTracker.Repositories
 
                     cmd.ExecuteNonQuery();
 
+                }
+            }
+        }
+
+        public void EditIngredient(Ingredient ingredient)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Ingredient 
+                                        SET 
+                                        [Name] = @name,
+                                        [ImageUrl] = @imageUrl,
+                                        [ServingSize] = @servingSize,
+                                        [Fat] = @fat,
+                                        [Protein] = @protein,
+                                        [Carbs] = @carbs,
+                                        [Sodium] = @sodium
+                                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", ingredient.Id);
+                    cmd.Parameters.AddWithValue("@name", ingredient.Name);
+                    cmd.Parameters.AddWithValue("@imageUrl", ingredient.ImageUrl);
+                    cmd.Parameters.AddWithValue("@servingSize", ingredient.ServingSize);
+                    cmd.Parameters.AddWithValue("@fat", ingredient.Fat);
+                    cmd.Parameters.AddWithValue("@protein", ingredient.Protein);
+                    cmd.Parameters.AddWithValue("@carbs", ingredient.Carbs);
+                    cmd.Parameters.AddWithValue("@sodium", ingredient.Sodium);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
