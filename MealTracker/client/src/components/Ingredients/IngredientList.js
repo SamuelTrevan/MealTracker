@@ -102,7 +102,7 @@ export default function IngredientList() {
                   </Button>
                   <Button
                     variant="outlined"
-                    // onClick={() => navigate(`/food/${row.id}`)}
+                    onClick={() => navigate(`/food/edit/${row.id}`)}
                   >
                     Edit
                   </Button>

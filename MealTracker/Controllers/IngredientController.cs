@@ -71,6 +71,21 @@ namespace MealTracker.Controllers
             }
         }
 
+        [HttpPut("food/Edit/{id}")]
+        public IActionResult Edit(Ingredient ingredient)
+        {
+            try
+            {
+                _ingredientRepository.EditIngredient(ingredient);
+
+                return Ok(ingredient);
+            }
+            catch (Exception ex)
+            {
+                return Conflict("This did not work");
+            }
+        }
+
 
 
     }

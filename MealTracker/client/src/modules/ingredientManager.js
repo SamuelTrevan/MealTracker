@@ -74,3 +74,22 @@ export const DeleteIngredient = (foodId) => {
     });
   });
 };
+
+export const EditIngredient = (food) => {
+  return getToken().then((token) => {
+    return fetch(`${_apiUrl}/food/edit/${food.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(food),
+    }).then((resp) => {
+      if (!resp.ok) {
+        throw new Error(
+          "An unknown error occurred while trying to get delete food"
+        );
+      }
+    });
+  });
+};

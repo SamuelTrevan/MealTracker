@@ -11,6 +11,7 @@ namespace MealTracker.Repositories
         Ingredient GetIngredientById(int id);
 
         void DeleteIngredient(int id);
+        void EditIngredient(Ingredient ingredient);
 
     }
 }
