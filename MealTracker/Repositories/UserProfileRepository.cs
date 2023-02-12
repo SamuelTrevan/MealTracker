@@ -65,5 +65,7 @@ namespace MealTracker.Repositories
                 }
             }
         }
+
+        //public UserProfile GetCurrentUserbyId
     }
 }

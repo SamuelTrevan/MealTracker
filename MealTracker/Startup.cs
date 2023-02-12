@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MealTracker.Repositories;
+using Mealtracker.Repositories;
 
 namespace MealTracker
 {
@@ -31,6 +32,8 @@ namespace MealTracker
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IIngredientRepository, IngredientRepository>();
+            services.AddTransient<IMealRepository, MealRepository>();
+            services.AddTransient<IMealTypeRepository, MealTypeRepository>();
 
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");

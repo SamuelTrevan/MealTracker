@@ -106,12 +106,6 @@ export default function IngredientList() {
                   >
                     Edit
                   </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => navigate(`/food/delete/${row.id}`)}
-                  >
-                    Delete
-                  </Button>
                 </TableCell>
               </TableRow>
             ))}

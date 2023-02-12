@@ -46,6 +46,15 @@ namespace MealTracker.Controllers
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
         }
+
+        //[HttpGet]
+        //public IActionResult GetCurrentUserId() 
+        //{
+        //    var currentUser = _userProfileRepository.GetCurrentUserbyId();
+
+        //    return Ok(currentUser) 
+        //}
+
     }
 }
 

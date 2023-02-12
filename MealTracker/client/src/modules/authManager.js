@@ -14,6 +14,23 @@ const _doesUserExist = (firebaseUserId) => {
   );
 };
 
+export const getCurrentUserId = () => {
+  const currentUser = firebase.auth().currentUser;
+  if (!currentUser) {
+    throw new Error("Cannot get current user. Did you forget to login?");
+  }
+  return getToken().then((token) =>
+    fetch(`${_apiUrl}/${currentUser.uid}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((user) => user.id)
+  );
+};
+
 const _saveUser = (userProfile) => {
   return getToken().then((token) =>
     fetch(_apiUrl, {

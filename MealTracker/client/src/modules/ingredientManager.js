@@ -50,9 +50,7 @@ export const getIngredientById = (foodId) => {
       if (resp.ok) {
         return resp.json();
       } else {
-        throw new Error(
-          "An unknown error occurred while trying to get ingredients"
-        );
+        throw new Error("An unknown error occurred while trying to get food");
       }
     });
   });
@@ -86,9 +84,7 @@ export const EditIngredient = (food) => {
       body: JSON.stringify(food),
     }).then((resp) => {
       if (!resp.ok) {
-        throw new Error(
-          "An unknown error occurred while trying to get delete food"
-        );
+        throw new Error("An unknown error occurred while trying to edit food");
       }
     });
   });
