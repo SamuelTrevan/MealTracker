@@ -12,6 +12,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
+import { useNavigate } from "react-router-dom";
 import { DeleteMeal, GetCurrentUserMeals } from "../../modules/mealManager";
 
 export const GetAllMealsByUserId = () => {
@@ -19,6 +20,8 @@ export const GetAllMealsByUserId = () => {
   const [selectedDate, setSelectedDate] = useState(
     moment().format(`MM-DD-YYYY`)
   );
+
+  const navigate = useNavigate();
 
   const handelDeleteButtonClick = (event, mealId) => {
     event.preventDefault();
@@ -105,6 +108,12 @@ export const GetAllMealsByUserId = () => {
               onClick={(event) => handelDeleteButtonClick(event, meal.id)}
             >
               Delete
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => navigate(`/meal/edit/${meal.id}`)}
+            >
+              Edit
             </Button>
           </Card>
         </div>

@@ -1,5 +1,5 @@
 import { getToken } from "./authManager";
-const _apiUrl = "api/mealType";
+const _apiUrl = "/api/mealType";
 
 export const getAllMealTypes = () => {
   return getToken().then((token) => {

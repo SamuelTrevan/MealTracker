@@ -41,20 +41,10 @@ namespace MealTracker.Controllers
         [HttpPost]
         public IActionResult Register(UserProfile userProfile)
         {
-            // All newly registered users start out as a "user" user type (i.e. they are not admins)
             _userProfileRepository.Add(userProfile);
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
         }
-
-        //[HttpGet]
-        //public IActionResult GetCurrentUserId() 
-        //{
-        //    var currentUser = _userProfileRepository.GetCurrentUserbyId();
-
-        //    return Ok(currentUser) 
-        //}
-
     }
 }
 

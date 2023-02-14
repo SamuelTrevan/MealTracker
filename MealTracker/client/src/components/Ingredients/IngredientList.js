@@ -1,5 +1,6 @@
 import {
   Button,
+  Grid,
   Paper,
   Table,
   TableBody,
@@ -65,53 +66,58 @@ export default function IngredientList() {
       >
         Add New Food
       </Button>
-
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Foods</TableCell>
-              <TableCell>Serving Size&nbsp;(g)</TableCell>
-              <TableCell>Fat&nbsp;(g)</TableCell>
-              <TableCell>Protein&nbsp;(g)</TableCell>
-              <TableCell>Carbs&nbsp;(g)</TableCell>
-              <TableCell>Sodium&nbsp;(mg)</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell>{row.servingSize}</TableCell>
-                <TableCell>{row.fat}</TableCell>
-                <TableCell>{row.protein}</TableCell>
-                <TableCell>{row.carbs}</TableCell>
-                <TableCell>{row.sodium}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    onClick={() => navigate(`/food/${row.id}`)}
+      <Grid container>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8}>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Foods</TableCell>
+                  <TableCell>Serving Size&nbsp;(g)</TableCell>
+                  <TableCell>Fat&nbsp;(g)</TableCell>
+                  <TableCell>Protein&nbsp;(g)</TableCell>
+                  <TableCell>Carbs&nbsp;(g)</TableCell>
+                  <TableCell>Sodium&nbsp;(mg)</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    Details
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => navigate(`/food/edit/${row.id}`)}
-                  >
-                    Edit
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell>{row.servingSize}</TableCell>
+                    <TableCell>{row.fat}</TableCell>
+                    <TableCell>{row.protein}</TableCell>
+                    <TableCell>{row.carbs}</TableCell>
+                    <TableCell>{row.sodium}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        onClick={() => navigate(`/food/${row.id}`)}
+                      >
+                        Details
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={() => navigate(`/food/edit/${row.id}`)}
+                      >
+                        Edit
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item xs={2}></Grid>
+      </Grid>
     </>
   );
 }

@@ -2,9 +2,7 @@ import {
   Box,
   Button,
   FormControl,
-  FormGroup,
   Grid,
-  Input,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -16,15 +14,13 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
-import firebase from "firebase/app";
 import "firebase/auth";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllIngredients } from "../../modules/ingredientManager";
 import { getAllMealTypes } from "../../modules/mealTypeManager";
-import { postNewMeal } from "../../modules/mealManager";
-import { getCurrentUserId } from "../../modules/authManager";
+import { GetMealById, UpdateMeal } from "../../modules/mealManager";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 const ITEM_HEIGHT = 48;
@@ -38,16 +34,18 @@ const MenuProps = {
   },
 };
 
-export default function CreateMeal() {
+export default function EditMealForm() {
+  const { mealId } = useParams();
+
   const [mealTypes, setMealTypes] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const [userChoices, setUserChoices] = useState({
-    Date: new Date(),
-    UserProfileId: 0,
-    MealTypeId: "",
-    Ingredient: [],
-  });
+  const [userChoices, setUserChoices] = useState({});
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    GetMealById(mealId).then((meal) => setUserChoices(meal));
+  }, []);
 
   useEffect(() => {
     getAllIngredients().then((food) => setIngredients(food));
@@ -65,28 +63,27 @@ export default function CreateMeal() {
 
   const handelDateChange = (event) => {
     const copy = { ...userChoices };
-    copy["Date"] = event.format(`MM-DD-YYYY`);
+    copy["date"] = event.toDate();
     setUserChoices(copy);
   };
 
   const handleSaveButtonClick = (event) => {
     event.preventDefault();
     const newMeal = {
-      Date: userChoices.Date,
+      Id: userChoices.id,
+      Date: userChoices.date,
       UserProfileId: 0,
-      MealTypeId: userChoices.MealTypeId,
-      ingredients: userChoices.Ingredient,
+      MealTypeId: userChoices.mealTypeId,
+      ingredients: userChoices.ingredients,
     };
-    if (userChoices.MealTypeId && userChoices.Ingredient) {
-      postNewMeal(newMeal)
-        .catch((e) => alert(e.message))
-        .then(() => navigate("/"));
-    } else {
-      alert("Please complete the form");
-    }
+    UpdateMeal(newMeal)
+      .catch((e) => alert(e.message))
+      .then(() => navigate("/"));
   };
 
-  return (
+  return mealTypes.length &&
+    ingredients.length &&
+    Object.keys(userChoices).length ? (
     <>
       <Grid container>
         <Grid item xs={2}></Grid>
@@ -97,9 +94,9 @@ export default function CreateMeal() {
                 <DesktopDatePicker
                   label="Date"
                   inputFormat="MM-DD-YYYY"
-                  value={userChoices.Date}
+                  value={userChoices.date}
                   onChange={handelDateChange}
-                  name="Date"
+                  name="date"
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -111,9 +108,9 @@ export default function CreateMeal() {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={userChoices.MealTypeId}
+                  value={userChoices.mealTypeId}
                   label="Meal Type"
-                  name="MealTypeId"
+                  name="mealTypeId"
                   onChange={handleInputChange}
                 >
                   {mealTypes.map((type) => {
@@ -134,7 +131,7 @@ export default function CreateMeal() {
                   labelId="demo-multiple-checkbox-label"
                   id="demo-multiple-checkbox"
                   multiple
-                  value={userChoices.Ingredient}
+                  value={userChoices.ingredients}
                   onChange={handleInputChange}
                   input={<OutlinedInput label="Tag" />}
                   renderValue={(selected) =>
@@ -146,16 +143,20 @@ export default function CreateMeal() {
                       .join(", ")
                   }
                   MenuProps={MenuProps}
-                  name="Ingredient"
+                  name="ingredients"
                 >
-                  {ingredients.map((food) => (
-                    <MenuItem key={food.id} value={food.id}>
-                      <Checkbox
-                        checked={userChoices.Ingredient.indexOf(food.id) > -1}
-                      />
-                      <ListItemText primary={food.name} />
-                    </MenuItem>
-                  ))}
+                  {ingredients.map((food) => {
+                    return (
+                      <MenuItem key={food.id} value={food.id}>
+                        <Checkbox
+                          checked={
+                            userChoices.ingredients.indexOf(food.id) > -1
+                          }
+                        />
+                        <ListItemText primary={food.name} />
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
             </Stack>
@@ -170,8 +171,8 @@ export default function CreateMeal() {
         className="submit_button"
       >
         {" "}
-        Create Meal{" "}
+        Update{" "}
       </Button>
     </>
-  );
+  ) : null;
 }
