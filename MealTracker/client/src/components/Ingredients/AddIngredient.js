@@ -172,8 +172,7 @@ export const AddIngredientForm = () => {
         onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
         className="submit_button"
       >
-        {" "}
-        Add New Food{" "}
+        Add New Food
       </Button>
     </form>
   );

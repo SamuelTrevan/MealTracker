@@ -7,6 +7,9 @@ import { IngredientDetails } from "./Ingredients/IngredientDetails";
 import { IngredientEditForm } from "./Ingredients/IngredientEditForm";
 import IngredientList from "./Ingredients/IngredientList";
 import Login from "./Login";
+import CreateMeal from "./Meals/CreateMeal";
+import EditMealForm from "./Meals/MealEditForm";
+import { GetAllMealsByUserId } from "./Meals/MealList";
 import Register from "./Register";
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -16,7 +19,9 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/">
           <Route
             index
-            element={isLoggedIn ? <Hello /> : <Navigate to="/login" />}
+            element={
+              isLoggedIn ? <GetAllMealsByUserId /> : <Navigate to="/login" />
+            }
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -25,6 +30,8 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route path="/food/:foodId" element={<IngredientDetails />} />
           <Route path="/food/delete/:foodId" element={<IngredientDelete />} />
           <Route path="/food/edit/:foodId" element={<IngredientEditForm />} />
+          <Route path="/createmeal" element={<CreateMeal />} />
+          <Route path="/meal/edit/:mealId" element={<EditMealForm />} />
           <Route>
             <Route />
             <Route />

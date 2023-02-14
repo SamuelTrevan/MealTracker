@@ -1,10 +1,9 @@
 import { getToken } from "./authManager";
+const _apiUrl = "/api/meal";
 
-const _apiUrl = "/api/ingredient";
-
-export const getAllIngredients = () => {
+export const GetCurrentUserMeals = (date) => {
   return getToken().then((token) => {
-    return fetch(_apiUrl, {
+    return fetch(`${_apiUrl}/bydate/${date}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -13,52 +12,34 @@ export const getAllIngredients = () => {
       if (resp.ok) {
         return resp.json();
       } else {
-        throw new Error(
-          "An unknown error occurred while trying to get ingredients"
-        );
+        throw new Error("An unknown error occurred while trying to get meals");
       }
     });
   });
 };
 
-export const postNewIngredient = (newFood) => {
+export const postNewMeal = (newMeal) => {
   return getToken().then((token) => {
     return fetch(_apiUrl, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newFood),
+      body: JSON.stringify(newMeal),
     }).then((resp) => {
       if (resp.ok) {
         return resp.json();
       } else {
-        throw new Error("This food already exists");
+        throw new Error("This Meal already exists");
       }
     });
   });
 };
 
-export const getIngredientById = (foodId) => {
+export const DeleteMeal = (mealId) => {
   return getToken().then((token) => {
-    return fetch(`${_apiUrl}/food/${foodId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        throw new Error("An unknown error occurred while trying to get food");
-      }
-    });
-  });
-};
-
-export const DeleteIngredient = (foodId) => {
-  return getToken().then((token) => {
-    return fetch(`${_apiUrl}/food/delete/${foodId}`, {
+    return fetch(`${_apiUrl}/${mealId}`, {
       method: "Delete",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -66,25 +47,42 @@ export const DeleteIngredient = (foodId) => {
     }).then((resp) => {
       if (!resp.ok) {
         throw new Error(
-          "An unknown error occurred while trying to get delete food"
+          "An unknown error occurred while trying to get delete meal"
         );
       }
     });
   });
 };
 
-export const EditIngredient = (food) => {
+export const GetMealById = (id) => {
   return getToken().then((token) => {
-    return fetch(`${_apiUrl}/food/edit/${food.id}`, {
+    return fetch(`${_apiUrl}/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error("An unknown error occurred while trying to get meal");
+      }
+    });
+  });
+};
+
+export const UpdateMeal = (meal) => {
+  return getToken().then((token) => {
+    return fetch(`${_apiUrl}/edit/${meal.Id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(food),
+      body: JSON.stringify(meal),
     }).then((resp) => {
       if (!resp.ok) {
-        throw new Error("An unknown error occurred while trying to edit food");
+        throw new Error("An unknown error occurred while trying to edit meal");
       }
     });
   });
