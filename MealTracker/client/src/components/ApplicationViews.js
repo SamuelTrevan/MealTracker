@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Hello from "./Hello";
 import { AddIngredientForm } from "./Ingredients/AddIngredient";
 import { IngredientDelete } from "./Ingredients/IngredientDelete";
 import { IngredientDetails } from "./Ingredients/IngredientDetails";
@@ -27,7 +26,6 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route path="/register" element={<Register />} />
           <Route path="/food" element={<IngredientList />} />
           <Route path="/food/add" element={<AddIngredientForm />} />
-          <Route path="/food/:foodId" element={<IngredientDetails />} />
           <Route path="/food/delete/:foodId" element={<IngredientDelete />} />
           <Route path="/food/edit/:foodId" element={<IngredientEditForm />} />
           <Route path="/createmeal" element={<CreateMeal />} />

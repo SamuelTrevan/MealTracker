@@ -70,6 +70,11 @@ export const IngredientEditForm = () => {
               noValidate
               autoComplete="off"
             >
+              <img
+                src={userChoices.imageUrl}
+                alt={userChoices.name}
+                height="100"
+              ></img>
               <div>
                 <TextField
                   required={true}
@@ -96,11 +101,6 @@ export const IngredientEditForm = () => {
                   }}
                 />
               </div>
-              <img
-                src={userChoices.imageUrl}
-                alt={userChoices.name}
-                height="100"
-              ></img>
               <div>
                 <TextField
                   required={true}
