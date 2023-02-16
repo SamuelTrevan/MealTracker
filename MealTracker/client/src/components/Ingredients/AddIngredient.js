@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, FormControl, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -7,7 +7,7 @@ import {
 } from "../../modules/ingredientManager";
 
 export const AddIngredientForm = () => {
-  const [ingredient, setIngredient] = useState([]);
+  const [food, setFood] = useState([]);
 
   const [userChoices, setUserChoices] = useState({
     name: "",
@@ -21,7 +21,7 @@ export const AddIngredientForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllIngredients().then((food) => setIngredient(food));
+    getAllIngredients().then((food) => setFood(food));
   }, []);
 
   const handleSaveButtonClick = (event) => {
@@ -59,121 +59,128 @@ export const AddIngredientForm = () => {
   };
 
   return (
-    <form className="ticketForm">
-      <h2 className="ticketForm__title">Add New Food</h2>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="name">Name: </label>
-          <input
-            required
-            autoFocus
-            name="name"
-            type="text"
-            className="form-control"
-            placeholder="ex.. banana"
-            value={userChoices.name}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="imageUrl">Image Url: </label>
-          <input
-            required
-            autoFocus
-            name="imageUrl"
-            type="text"
-            className="form-control"
-            placeholder="example.com"
-            value={userChoices.imageUrl}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="servingSize">Serving Size: </label>
-          <input
-            required
-            autoFocus
-            name="servingSize"
-            type="number"
-            className="form-control"
-            placeholder=""
-            value={userChoices.servingSize}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="fat">Fat in grams: </label>
-          <input
-            required
-            autoFocus
-            name="fat"
-            type="number"
-            className="form-control"
-            placeholder=""
-            value={userChoices.fat}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="protein">Protein in grams: </label>
-          <input
-            required
-            autoFocus
-            name="protein"
-            type="number"
-            className="form-control"
-            placeholder=""
-            value={userChoices.protein}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="carbs">Carbs in grams: </label>
-          <input
-            required
-            autoFocus
-            name="carbs"
-            type="number"
-            className="form-control"
-            placeholder=""
-            value={userChoices.carbs}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="sodium">Sodium in miligrams: </label>
-          <input
-            required
-            autoFocus
-            name="sodium"
-            type="number"
-            className="form-control"
-            placeholder=""
-            value={userChoices.sodium}
-            onChange={handleInputChange}
-          />
-        </div>
-      </fieldset>
-      <Button
-        style={{ marginTop: "2em" }}
-        variant="contained"
-        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-        className="submit_button"
-      >
-        Add New Food
-      </Button>
-    </form>
+    <>
+      <Grid container>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={4}>
+          <FormControl>
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <img
+                src={userChoices.imageUrl}
+                alt={userChoices.name}
+                height="100"
+              ></img>
+              <div>
+                <TextField
+                  required={true}
+                  id="outlined-required"
+                  label="Food Name"
+                  value={userChoices.name}
+                  onChange={(evt) => {
+                    const copy = { ...userChoices };
+                    copy.name = evt.target.value;
+                    setUserChoices(copy);
+                  }}
+                />
+                <div>
+                  <TextField
+                    required={true}
+                    id="outlined-required"
+                    label="Image Url"
+                    value={userChoices.imageUrl}
+                    onChange={(evt) => {
+                      const copy = { ...userChoices };
+                      copy.imageUrl = evt.target.value;
+                      setUserChoices(copy);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <TextField
+                  required={true}
+                  id="outlined-required"
+                  label="Serving Size (in grams)"
+                  value={userChoices.servingSize}
+                  onChange={(evt) => {
+                    const copy = { ...userChoices };
+                    copy.servingSize = evt.target.value;
+                    setUserChoices(copy);
+                  }}
+                />
+              </div>
+              <div>
+                <TextField
+                  required={true}
+                  id="outlined-required"
+                  label="Fat (in grams)"
+                  value={userChoices.fat}
+                  onChange={(evt) => {
+                    const copy = { ...userChoices };
+                    copy.fat = evt.target.value;
+                    setUserChoices(copy);
+                  }}
+                />
+              </div>
+              <div>
+                <TextField
+                  required={true}
+                  id="outlined-required"
+                  label="Protein (in grams)"
+                  value={userChoices.protein}
+                  onChange={(evt) => {
+                    const copy = { ...userChoices };
+                    copy.protein = evt.target.value;
+                    setUserChoices(copy);
+                  }}
+                />
+              </div>
+              <div>
+                <TextField
+                  required={true}
+                  id="outlined-required"
+                  label="Carbs (in grams)"
+                  value={userChoices.carbs}
+                  onChange={(evt) => {
+                    const copy = { ...userChoices };
+                    copy.carbs = evt.target.value;
+                    setUserChoices(copy);
+                  }}
+                />
+              </div>
+              <div>
+                <TextField
+                  required={true}
+                  id="outlined-required"
+                  label="Sodium (in miligrams)"
+                  value={userChoices.sodium}
+                  onChange={(evt) => {
+                    const copy = { ...userChoices };
+                    copy.sodium = evt.target.value;
+                    setUserChoices(copy);
+                  }}
+                />
+              </div>
+              <Button
+                style={{ marginTop: "2em" }}
+                variant="contained"
+                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                className="btn btn-primary"
+              >
+                Save Food
+              </Button>
+            </Box>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}></Grid>
+      </Grid>
+    </>
   );
 };

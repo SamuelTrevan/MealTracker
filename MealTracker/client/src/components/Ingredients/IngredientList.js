@@ -1,5 +1,11 @@
 import {
   Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Dialog,
+  DialogTitle,
   Grid,
   Paper,
   Table,
@@ -8,6 +14,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -15,6 +22,8 @@ import { getAllIngredients } from "../../modules/ingredientManager";
 
 export default function IngredientList() {
   const [ingredients, setIngredients] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedFood, setSelectedFood] = useState(null);
 
   const navigate = useNavigate();
 
@@ -56,6 +65,10 @@ export default function IngredientList() {
     getAllIngredients().then((food) => setIngredients(food));
   }, []);
 
+  const handleClose = (value) => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Button
@@ -73,12 +86,24 @@ export default function IngredientList() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Foods</TableCell>
-                  <TableCell>Serving Size&nbsp;(g)</TableCell>
-                  <TableCell>Fat&nbsp;(g)</TableCell>
-                  <TableCell>Protein&nbsp;(g)</TableCell>
-                  <TableCell>Carbs&nbsp;(g)</TableCell>
-                  <TableCell>Sodium&nbsp;(mg)</TableCell>
+                  <TableCell>
+                    <b>Foods</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>Serving Size&nbsp;(g)</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>Fat&nbsp;(g)</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>Protein&nbsp;(g)</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>Carbs&nbsp;(g)</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>Sodium&nbsp;(mg)</b>
+                  </TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -99,7 +124,10 @@ export default function IngredientList() {
                     <TableCell>
                       <Button
                         variant="outlined"
-                        onClick={() => navigate(`/food/${row.id}`)}
+                        onClick={() => {
+                          setSelectedFood(row);
+                          setOpen(true);
+                        }}
                       >
                         Details
                       </Button>
@@ -115,6 +143,32 @@ export default function IngredientList() {
               </TableBody>
             </Table>
           </TableContainer>
+
+          {selectedFood ? (
+            <Dialog onClose={handleClose} open={open}>
+              <DialogTitle>Set backup account</DialogTitle>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="275"
+                    image={selectedFood.imageUrl}
+                    alt={selectedFood.name}
+                  ></CardMedia>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {selectedFood.name}
+                    </Typography>
+                    <div>Serving Size: {selectedFood.servingSize} grams</div>
+                    <div>Fat: {selectedFood.fat} grams</div>
+                    <div>Carbs: {selectedFood.carbs} grams</div>
+                    <div>Protein: {selectedFood.protein} grams</div>
+                    <div>Sodium: {selectedFood.sodium} miligrams</div>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Dialog>
+          ) : null}
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>

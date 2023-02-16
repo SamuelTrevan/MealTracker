@@ -2,21 +2,19 @@ import {
   Box,
   Button,
   FormControl,
-  FormGroup,
   Grid,
-  Input,
   InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
-import firebase from "firebase/app";
 import "firebase/auth";
 
 import { useEffect, useState } from "react";
@@ -24,7 +22,6 @@ import { useNavigate } from "react-router-dom";
 import { getAllIngredients } from "../../modules/ingredientManager";
 import { getAllMealTypes } from "../../modules/mealTypeManager";
 import { postNewMeal } from "../../modules/mealManager";
-import { getCurrentUserId } from "../../modules/authManager";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 const ITEM_HEIGHT = 48;
@@ -88,9 +85,12 @@ export default function CreateMeal() {
 
   return (
     <>
+      <Typography variant="h2" align="center" p={5}>
+        Create A New Meal
+      </Typography>
       <Grid container>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
+        <Grid item xs={3}></Grid>
+        <Grid item xs={6}>
           <Box sx={{ minWidth: 120 }}>
             <Stack spacing={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -105,12 +105,10 @@ export default function CreateMeal() {
               </LocalizationProvider>
 
               <FormControl>
-                <InputLabel id="demo-simple-select-label">
-                  Meal Types
-                </InputLabel>
+                <InputLabel id="select-label">Meal Types</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId="select-label"
+                  id="select"
                   value={userChoices.MealTypeId}
                   label="Meal Type"
                   name="MealTypeId"
@@ -129,10 +127,10 @@ export default function CreateMeal() {
               </FormControl>
 
               <FormControl>
-                <InputLabel id="demo-multiple-checkbox-label">Food</InputLabel>
+                <InputLabel id="multiple-checkbox-label">Food</InputLabel>
                 <Select
-                  labelId="demo-multiple-checkbox-label"
-                  id="demo-multiple-checkbox"
+                  labelId="multiple-checkbox-label"
+                  id="multiple-checkbox"
                   multiple
                   value={userChoices.Ingredient}
                   onChange={handleInputChange}
@@ -160,18 +158,18 @@ export default function CreateMeal() {
               </FormControl>
             </Stack>
           </Box>
+          <Button
+            sx={{ marginTop: "2em" }}
+            variant="contained"
+            onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+            className="submit_button"
+          >
+            {" "}
+            Create Meal{" "}
+          </Button>
         </Grid>
-        <Grid item xs={2}></Grid>
+        <Grid item xs={3}></Grid>
       </Grid>
-      <Button
-        style={{ marginTop: "2em" }}
-        variant="contained"
-        onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-        className="submit_button"
-      >
-        {" "}
-        Create Meal{" "}
-      </Button>
     </>
   );
 }

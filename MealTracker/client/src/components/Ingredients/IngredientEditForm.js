@@ -70,9 +70,14 @@ export const IngredientEditForm = () => {
               noValidate
               autoComplete="off"
             >
+              <img
+                src={userChoices.imageUrl}
+                alt={userChoices.name}
+                height="100"
+              ></img>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Food Name"
                   value={userChoices.name}
@@ -85,7 +90,7 @@ export const IngredientEditForm = () => {
               </div>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Image Url"
                   value={userChoices.imageUrl}
@@ -96,14 +101,9 @@ export const IngredientEditForm = () => {
                   }}
                 />
               </div>
-              <img
-                src={userChoices.imageUrl}
-                alt={userChoices.name}
-                height="100"
-              ></img>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Serving Size (in grams)"
                   value={userChoices.servingSize}
@@ -116,7 +116,7 @@ export const IngredientEditForm = () => {
               </div>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Fat (in grams)"
                   value={userChoices.fat}
@@ -129,7 +129,7 @@ export const IngredientEditForm = () => {
               </div>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Protein (in grams)"
                   value={userChoices.protein}
@@ -142,7 +142,7 @@ export const IngredientEditForm = () => {
               </div>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Carbs (in grams)"
                   value={userChoices.carbs}
@@ -155,7 +155,7 @@ export const IngredientEditForm = () => {
               </div>
               <div>
                 <TextField
-                  required="true"
+                  required={true}
                   id="outlined-required"
                   label="Sodium (in miligrams)"
                   value={userChoices.sodium}
