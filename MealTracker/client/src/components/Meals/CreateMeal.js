@@ -23,6 +23,7 @@ import { getAllIngredients } from "../../modules/ingredientManager";
 import { getAllMealTypes } from "../../modules/mealTypeManager";
 import { postNewMeal } from "../../modules/mealManager";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import moment from "moment";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -39,7 +40,7 @@ export default function CreateMeal() {
   const [mealTypes, setMealTypes] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [userChoices, setUserChoices] = useState({
-    Date: new Date(),
+    Date: moment().format(`MM-DD-YYYY`),
     UserProfileId: 0,
     MealTypeId: "",
     Ingredient: [],
